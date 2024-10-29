@@ -13,6 +13,14 @@ update FLAKE USER IP:
         --target-host {{ USER }}@{{ IP }} \
         --build-host {{ USER }}@{{ IP }}
 
+get-host-sops IP:
+    @ssh {{ IP }} -t \
+        -o RemoteCommand='nix shell nixpkgs#ssh-to-age --command ssh-to-age < /etc/ssh/ssh_host_ed25519_key.pub' | \
+        tail -n 1
+
+update-sops-keys:
+    @find {{ justfile_directory() }} -type f -name "secrets.yaml" | xargs sops updatekeys -y
+
 # Update host remotely using colmena
 deploy *args='--help':
     @-colmena "{{args}}"

@@ -25,7 +25,7 @@
   security.sudo.wheelNeedsPassword = false;
 
   # kernel version
-  boot.kernelPackages = pkgs.linuxPackages_6_10;
+  boot.kernelPackages = pkgs.linuxPackages_6_11;
 
   system.stateVersion = "24.05";
 }

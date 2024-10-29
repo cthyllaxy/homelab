@@ -1,6 +1,7 @@
 keys:
   - &thamenato age15jkdns7a6m5j457ew0kr0lwznt5nje9fn76n7vy7c7u80k5ny5askks206
   - &unraid_nixos_01 age1tecvd6c4a27upmsvkzvj8plfm72wrf7lg9phaq4sxd8dyt55730q6a35qx
+  - &bastion-proxy age13xt0d3tn5lalg0gqjv0pspt8dhzkqq635yqaqa5lccyq5ak2ka5st6wnhy
 creation_rules:
   - path_regex: docker/(.*/)?secrets.env$
     key_groups:
@@ -17,3 +18,4 @@ creation_rules:
     key_groups:
       - age:
           - *thamenato
+          - *bastion-proxy

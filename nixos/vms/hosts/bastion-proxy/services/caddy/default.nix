@@ -30,6 +30,6 @@ in
       '';
     };
 
-    systemd.services.caddy.enviroment = config.sops.secrets.caddyEnv.path;
+    # systemd.services.caddy.enviroment = config.sops.secrets.caddyEnv.path;
   };
 }
