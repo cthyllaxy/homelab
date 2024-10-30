@@ -3,20 +3,10 @@
   imports = [
     ./disko-config.nix
     ./hardware-configuration.nix
-    ../../modules
   ];
 
   networking.networkmanager.enable = true;
   networking.hostName = meta.hostname;
-
-  homelab.modules = {
-    boot.enable = true;
-    locale.enable = true;
-    nix.enable = true;
-    programs.systemPackages.enable = true;
-    users.enable = true;
-    services.openssh.enable = true;
-  };
 
   services.qemuGuest.enable = true;
   # allow user in group wheel to auth w/o passwd

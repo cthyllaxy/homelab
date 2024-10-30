@@ -69,6 +69,7 @@
           modulesDefaults = [
             inputs.disko.nixosModules.disko
             inputs.sops-nix.nixosModules.sops
+            ./nix/nixos
           ];
 
         in
@@ -78,7 +79,7 @@
               meta = mkMeta { hostname = "bastion-proxy"; };
             };
 
-            modules = [ ./nixos/vms/hosts/bastion-proxy ] ++ modulesDefaults;
+            modules = [ ./nix/hosts/bastion-proxy ] ++ modulesDefaults;
           };
 
           unraid-nixos-01 = nixpkgs.lib.nixosSystem {
@@ -86,7 +87,7 @@
               meta = mkMeta { hostname = "unraid-nixos-01"; };
             };
 
-            modules = [ ./nixos/vms/hosts/unraid-nixos-01 ] ++ modulesDefaults;
+            modules = [ ./nix/hosts/unraid-nixos-01 ] ++ modulesDefaults;
           };
         };
 
@@ -104,6 +105,7 @@
             imports = [
               inputs.disko.nixosModules.disko
               inputs.sops-nix.nixosModules.sops
+              ./nix/nixos
             ];
             deployment = {
               buildOnTarget = true;
@@ -112,7 +114,7 @@
           };
 
           bastion-proxy = {
-            imports = [ ./nixos/vms/hosts/bastion-proxy ];
+            imports = [ ./nix/hosts/bastion-proxy ];
             deployment = {
               targetHost = "10.0.10.5";
               tags = [
@@ -123,7 +125,7 @@
           };
 
           unraid-nixos-01 = {
-            imports = [ ./nixos/vms/hosts/unraid-nixos-01 ];
+            imports = [ ./nix/hosts/unraid-nixos-01 ];
 
             deployment = {
               targetHost = "10.0.10.3";

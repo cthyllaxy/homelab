@@ -1,26 +1,19 @@
 { config, ... }:
 {
-  imports = [
-    ../../defaults
-    ./services
-  ];
+  imports = [ ../../modules ];
 
   sops = {
     defaultSopsFile = ./secrets.yaml;
     defaultSopsFormat = "yaml";
   };
 
-  modules.services = {
-    caddy.enable = false;
+  homelab.modules.services = {
+    openssh.enable = true;
   };
 
   sops.secrets.cloudflaredCredentials = {
     owner = "cloudflared";
   };
-
-  # sops.secrets.cloudflaredCert = {
-  #   owner = "cloudflared";
-  # };
 
   services.cloudflared = {
     enable = true;

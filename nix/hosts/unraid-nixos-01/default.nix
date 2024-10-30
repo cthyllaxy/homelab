@@ -1,10 +1,10 @@
 {
-  imports = [ ../../defaults ];
+  imports = [ ../../modules ];
 
-  # sops = {
-  #   defaultSopsFile = ./secrets.yaml;
-  #   defaultSopsFormat = "yaml";
-  # };
+  sops = {
+    defaultSopsFile = ./secrets.yaml;
+    defaultSopsFormat = "yaml";
+  };
 
   homelab.modules.services = {
     blocky.enable = true;
