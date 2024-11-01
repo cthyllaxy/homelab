@@ -17,7 +17,6 @@ in
 
   config =
     let
-      homeDir = "/mnt/data/nextcloud";
       # dataDir = "${homeDir}/data";
       hostName = "nextcloud.cthyllaxy.xyz";
     in

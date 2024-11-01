@@ -11,7 +11,7 @@
 
   homelab.modules.services = {
     blocky.enable = true;
-    nginx.enable = true;
+    # nginx.enable = true;
     paperless.enable = true;
     postgres.enable = true;
   };
