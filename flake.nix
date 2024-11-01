@@ -30,7 +30,7 @@
           hooks = {
             check-added-large-files.enable = true;
             check-yaml.enable = true;
-            # deadnix.enable = true;
+            deadnix.enable = true;
             detect-private-keys.enable = true;
             end-of-file-fixer.enable = true;
             nixfmt-rfc-style.enable = true;
@@ -98,7 +98,7 @@
         {
           meta = {
             nixpkgs = import nixpkgs { inherit system; };
-            nodeSpecialArgs = builtins.mapAttrs (name: value: value._module.specialArgs) conf;
+            nodeSpecialArgs = builtins.mapAttrs (_name: value: value._module.specialArgs) conf;
           };
 
           defaults = {

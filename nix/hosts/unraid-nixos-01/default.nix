@@ -1,5 +1,8 @@
 {
-  imports = [ ../../modules ];
+  imports = [
+    ../../modules/services
+    ../../modules/vm
+  ];
 
   sops = {
     defaultSopsFile = ./secrets.yaml;
