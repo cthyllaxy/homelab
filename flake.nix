@@ -43,7 +43,7 @@
         hooks = {
           check-added-large-files.enable = true;
           check-yaml.enable = true;
-          # deadnix.enable = true;
+          deadnix.enable = true;
           detect-private-keys.enable = true;
           end-of-file-fixer.enable = true;
           alejandra.enable = true;
@@ -89,12 +89,12 @@
         deployment.buildOnTarget = true;
       };
 
-      unraid-nixos-01 = {
+      unraid-services = {
         imports = [./nixos/vms/unraid-nixos-01];
 
         deployment = {
-          targetHost = "10.0.10.3";
-          targetUser = "thamenato";
+          targetHost = "10.0.10.208";
+          targetUser = "root";
           tags = [
             "unraid"
             "vm"
