@@ -2,9 +2,10 @@ _default:
     @just --list
 
 # Fresh new install of NixOS in a host
-install FLAKE USER IP:
+bootstrap HOSTNAME IP USER='root':
     @nix run github:nix-community/nixos-anywhere -- \
-        --flake '.#{{ FLAKE }}' {{ USER }}@{{ IP }}
+        --generate-hardware-config nixos-generate-config './hosts/{{ HOSTNAME }}/hardware-configuration.nix' \
+        --flake '.#{{ HOSTNAME }}' '{{ USER }}@{{ IP }}'
 
 # Update a host remotely
 update FLAKE USER IP:

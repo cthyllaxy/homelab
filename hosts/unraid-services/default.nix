@@ -9,11 +9,11 @@
     ./disko-config.nix
   ];
 
-  sops = {
-    defaultSopsFile = ../../../secrets/unraid-nixos-01.yaml;
-    defaultSopsFormat = "yaml";
-    age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
-  };
+  # sops = {
+  #   defaultSopsFile = ../../../secrets/unraid-nixos-01.yaml;
+  #   defaultSopsFormat = "yaml";
+  #   age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+  # };
 
   networking.hostName = meta.hostname;
   networking.networkmanager.enable = true;
@@ -25,27 +25,27 @@
     programs.systemPackages.enable = true;
     users.enable = true;
 
-    services = {
-      blocky.enable = true;
-      nginx.enable = true;
-      openssh.enable = true;
-      owncloud.enable = true;
-      paperless.enable = true;
-      postgres.enable = true;
-    };
+    # services = {
+    #   blocky.enable = true;
+    #   nginx.enable = true;
+    #   openssh.enable = true;
+    #   owncloud.enable = true;
+    #   paperless.enable = true;
+    #   postgres.enable = true;
+    # };
   };
 
-  fileSystems = {
-    "/mnt/data" = {
-      device = "data";
-      fsType = "virtiofs";
-      options = [
-        "nofail"
-        "rw"
-        "relatime"
-      ];
-    };
-  };
+  # fileSystems = {
+  #   "/mnt/data" = {
+  #     device = "data";
+  #     fsType = "virtiofs";
+  #     options = [
+  #       "nofail"
+  #       "rw"
+  #       "relatime"
+  #     ];
+  #   };
+  # };
 
   services.qemuGuest.enable = true;
   # allow user in group wheel to auth w/o passwd
@@ -54,7 +54,7 @@
   security.sudo.wheelNeedsPassword = false;
 
   # kernel version
-  boot.kernelPackages = pkgs.linuxPackages_6_10;
+  boot.kernelPackages = pkgs.linuxPackages_6_15;
 
-  system.stateVersion = "24.05";
+  system.stateVersion = "25.05";
 }

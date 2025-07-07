@@ -67,6 +67,25 @@
       ];
     };
 
+    nixosConfigurations = {
+      unraid-services = nixpkgs.lib.nixosSystem {
+        inherit system;
+
+        specialArgs = {
+          meta = {
+            hostname = "unraid-services";
+            user = "thamenato";
+          };
+        };
+
+        modules = [
+          inputs.disko.nixosModules.disko
+          inputs.sops-nix.nixosModules.sops
+          ./hosts/unraid-services
+        ];
+      };
+    };
+
     colmenaHive = inputs.colmena.lib.makeHive {
       meta = {
         nixpkgs = import nixpkgs {inherit system;};
@@ -90,11 +109,11 @@
       };
 
       unraid-services = {
-        imports = [./nixos/vms/unraid-nixos-01];
+        imports = [./hosts/unraid-services];
 
         deployment = {
-          targetHost = "10.0.10.208";
-          targetUser = "root";
+          targetHost = "10.0.10.10";
+          targetUser = "thamenato";
           tags = [
             "unraid"
             "vm"
