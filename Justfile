@@ -1,3 +1,5 @@
+age_keys_path:="~/.config/sops/age"
+
 _default:
     @just --list
 
@@ -6,6 +8,21 @@ bootstrap HOSTNAME IP USER='root':
     @nix run github:nix-community/nixos-anywhere -- \
         --generate-hardware-config nixos-generate-config './hosts/{{ HOSTNAME }}/hardware-configuration.nix' \
         --flake '.#{{ HOSTNAME }}' '{{ USER }}@{{ IP }}'
+
+[group('sops')]
+[private]
+age-path:
+    @mkdir -p {{ age_keys_path }}
+
+[group('sops')]
+bw-ssh-key: age-path
+    @bw get item "Homelab SSH Sops Key" | \
+        jq -r '.sshKey.privateKey' | \
+        ssh-to-age -private-key > {{ age_keys_path }}/keys.txt
+
+[group('sops')]
+bw-age-key: age-path
+    @bw get notes "Homelab Age Sops Key" > {{ age_keys_path }}/keys.txt
 
 # Update a host remotely
 update FLAKE USER IP:

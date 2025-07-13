@@ -36,6 +36,7 @@
       inherit system;
       config.allowUnfree = true;
     };
+    user = "cthulhu";
   in {
     checks = {
       pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
@@ -59,11 +60,13 @@
 
       packages = with pkgs; [
         age
+        alejandra
+        bitwarden-cli
+        inputs.colmena.packages.${system}.colmena
         just
         nil
-        alejandra
         sops
-        inputs.colmena.packages.${system}.colmena
+        ssh-to-age
       ];
     };
 
@@ -73,8 +76,8 @@
 
         specialArgs = {
           meta = {
+            inherit user;
             hostname = "unraid-services";
-            user = "thamenato";
           };
         };
 
@@ -91,10 +94,10 @@
         nixpkgs = import nixpkgs {inherit system;};
 
         nodeSpecialArgs = {
-          unraid-nixos-01 = {
+          unraid-services = {
             meta = {
-              hostname = "unraid-nixos-01";
-              user = "thamenato";
+              inherit user;
+              hostname = "unraid-services";
             };
           };
         };
@@ -113,7 +116,7 @@
 
         deployment = {
           targetHost = "10.0.10.10";
-          targetUser = "thamenato";
+          targetUser = user;
           tags = [
             "unraid"
             "vm"
