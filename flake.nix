@@ -62,6 +62,7 @@
         age
         alejandra
         bitwarden-cli
+        fd
         inputs.colmena.packages.${system}.colmena
         just
         nil

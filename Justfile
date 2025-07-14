@@ -1,4 +1,4 @@
-age_keys_path:="~/.config/sops/age"
+age_keys_path:="$HOME/.config/sops/age"
 
 _default:
     @just --list
@@ -23,6 +23,10 @@ bw-ssh-key: age-path
 [group('sops')]
 bw-age-key: age-path
     @bw get notes "Homelab Age Sops Key" > {{ age_keys_path }}/keys.txt
+
+[group('sops')]
+update-keys:
+    @fd -e "yaml" -p ./secrets | xargs sops updatekeys
 
 # Update a host remotely
 update FLAKE USER IP:
