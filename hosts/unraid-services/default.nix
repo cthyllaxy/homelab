@@ -4,36 +4,30 @@
   ...
 }: {
   imports = [
-    ../../modules
-    ./hardware-configuration.nix
+    ../../modules/nixos
     ./disko-config.nix
+    ./hardware-configuration.nix
   ];
 
   # sops = {
-  #   defaultSopsFile = ../../../secrets/unraid-nixos-01.yaml;
+  #   defaultSopsFile = ../../../secrets/${meta.hostname}.yaml;
   #   defaultSopsFormat = "yaml";
   #   age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
   # };
 
-  networking.hostName = meta.hostname;
-  networking.networkmanager.enable = true;
-
-  homelab.modules = {
-    boot.enable = true;
-    locale.enable = true;
-    nix.enable = true;
-    programs.systemPackages.enable = true;
-    users.enable = true;
-
-    # services = {
-    #   blocky.enable = true;
-    #   nginx.enable = true;
-    #   openssh.enable = true;
-    #   owncloud.enable = true;
-    #   paperless.enable = true;
-    #   postgres.enable = true;
-    # };
+  networking = {
+    hostName = meta.hostname;
+    networkmanager.enable = true;
   };
+
+  # homelab.services = {
+  #   blocky.enable = true;
+  #   nginx.enable = true;
+  #   openssh.enable = true;
+  #   owncloud.enable = true;
+  #   paperless.enable = true;
+  #   postgres.enable = true;
+  # };
 
   # fileSystems = {
   #   "/mnt/data" = {
@@ -48,6 +42,7 @@
   # };
 
   services.qemuGuest.enable = true;
+
   # allow user in group wheel to auth w/o passwd
   # this setting fixes nix-rebuild / deploy-rs issues
   # when building a new generation
