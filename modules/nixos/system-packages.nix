@@ -3,5 +3,6 @@
     btop
     git
     neovim
+    ssh-to-age
   ];
 }

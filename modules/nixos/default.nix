@@ -3,7 +3,8 @@
     ./boot.nix
     ./locale.nix
     ./nix.nix
-    ./programs.nix
+    ./services.nix
+    ./system-packages.nix
     ./users.nix
   ];
 
