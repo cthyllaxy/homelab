@@ -1,9 +1,11 @@
 keys:
   - &bw_age_key age15jkdns7a6m5j457ew0kr0lwznt5nje9fn76n7vy7c7u80k5ny5askks206
   - &bw_ssh_key age1znjzjvdpdjuted8yrrwuyhs74a8ufcrtqsy7pwfuzx53l6nr2v0s7dl6hw
+  - &unraid_services age1sfa08w8llvr9wyhsr0sreuuhp3uhvwrz0gfdv7qwg340n0q98ffqlaff87
 creation_rules:
-  - path_regex: secrets/unraid-services.yaml$
+  - path_regex: hosts/unraid-services/secrets.yaml$
     key_groups:
       - age:
           - *bw_age_key
           - *bw_ssh_key
+          - *unraid_services
