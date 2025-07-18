@@ -1,7 +1,5 @@
 {meta, ...}: {
   imports = [
-    ../../modules/nixos
-    ../../modules/services
     ./disko-config.nix
     ./hardware-configuration.nix
   ];
@@ -24,15 +22,8 @@
 
   sops.defaultSopsFile = ./secrets.yaml;
 
-  # fileSystems = {
-  #   "/mnt/data" = {
-  #     device = "data";
-  #     fsType = "virtiofs";
-  #     options = [
-  #       "nofail"
-  #       "rw"
-  #       "relatime"
-  #     ];
-  #   };
-  # };
+  fileSystems = {
+    "/mnt/data" = meta.utils.mkUnraidShare "data";
+    "/mnt/appdata" = meta.utils.mkUnraidShare "appdata";
+  };
 }

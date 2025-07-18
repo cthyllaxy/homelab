@@ -37,6 +37,7 @@
       config.allowUnfree = true;
     };
     user = "cthulhu";
+    utils = import ./utils;
   in {
     checks = {
       pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
@@ -77,7 +78,7 @@
 
         specialArgs = {
           meta = {
-            inherit user;
+            inherit user utils;
             hostname = "unraid-services";
           };
         };
@@ -85,6 +86,7 @@
         modules = [
           inputs.disko.nixosModules.disko
           inputs.sops-nix.nixosModules.sops
+          ./modules
           ./hosts/unraid-services
         ];
       };
@@ -97,7 +99,7 @@
         nodeSpecialArgs = {
           unraid-services = {
             meta = {
-              inherit user;
+              inherit user utils;
               hostname = "unraid-services";
             };
           };
@@ -108,6 +110,7 @@
         imports = [
           inputs.disko.nixosModules.disko
           inputs.sops-nix.nixosModules.sops
+          ./modules
         ];
         deployment.buildOnTarget = true;
       };

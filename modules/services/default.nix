@@ -11,7 +11,12 @@ in {
     homelab.modules.services.dataDir = mkOption {
       type = types.str;
       default = "/mnt/data";
-      description = "The path of the storage.";
+      description = "Long term storage goes here";
+    };
+    homelab.modules.services.appDir = mkOption {
+      type = types.str;
+      default = "/mnt/appdata";
+      description = "Cache/app data goes here";
     };
   };
 }
