@@ -9,14 +9,15 @@
     networkmanager.enable = true;
   };
 
-  # homelab.modules.services = {
-  #   openssh.enable = true;
-  #   blocky.enable = true;
-  #   nginx.enable = true;
-  #   owncloud.enable = true;
-  #   paperless.enable = true;
-  #   postgres.enable = true;
-  # };
+  homelab.modules.services = {
+    jellyfin.enable = true;
+    # openssh.enable = true;
+    # blocky.enable = true;
+    # nginx.enable = true;
+    # owncloud.enable = true;
+    # paperless.enable = true;
+    # postgres.enable = true;
+  };
 
   services.qemuGuest.enable = true;
 
