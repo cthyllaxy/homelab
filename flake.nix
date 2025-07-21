@@ -90,6 +90,23 @@
           ./hosts/unraid-services
         ];
       };
+      unraid-vpn = nixpkgs.lib.nixosSystem {
+        inherit system;
+
+        specialArgs = {
+          meta = {
+            inherit user utils;
+            hostname = "unraid-vpn";
+          };
+        };
+
+        modules = [
+          inputs.disko.nixosModules.disko
+          inputs.sops-nix.nixosModules.sops
+          ./modules
+          ./hosts/unraid-services
+        ];
+      };
     };
 
     colmenaHive = inputs.colmena.lib.makeHive {
@@ -120,6 +137,18 @@
 
         deployment = {
           targetHost = "10.0.10.10";
+          targetUser = user;
+          tags = [
+            "unraid"
+            "vm"
+          ];
+        };
+      };
+      unraid-vpn = {
+        imports = [./hosts/unraid-services];
+
+        deployment = {
+          targetHost = "10.0.10.11";
           targetUser = user;
           tags = [
             "unraid"
