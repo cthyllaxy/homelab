@@ -21,7 +21,7 @@
 
   services.qemuGuest.enable = true;
 
-  # sops.defaultSopsFile = ./secrets.yaml;
+  sops.defaultSopsFile = ./secrets.yaml;
 
   fileSystems = {
     "/mnt/data" = meta.utils.mkUnraidShare "data";

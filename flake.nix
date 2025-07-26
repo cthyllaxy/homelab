@@ -38,6 +38,23 @@
     };
     user = "cthulhu";
     utils = import ./utils;
+
+    mkHost = hostName: (inputs.nixpkgs.lib.nixosSystem {
+      inherit system;
+
+      specialArgs = {
+        meta = {
+          inherit user utils;
+        };
+      };
+
+      modules = [
+        inputs.disko.nixosModules.disko
+        inputs.sops-nix.nixosModules.sops
+        ./modules
+        ./hosts/${hostName}
+      ];
+    });
   in {
     checks = {
       pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
@@ -73,38 +90,9 @@
     };
 
     nixosConfigurations = {
-      unraid-services = nixpkgs.lib.nixosSystem {
-        inherit system;
-
-        specialArgs = {
-          meta = {
-            inherit user utils;
-          };
-        };
-
-        modules = [
-          inputs.disko.nixosModules.disko
-          inputs.sops-nix.nixosModules.sops
-          ./modules
-          ./hosts/unraid-services
-        ];
-      };
-      unraid-vpn = nixpkgs.lib.nixosSystem {
-        inherit system;
-
-        specialArgs = {
-          meta = {
-            inherit user utils;
-          };
-        };
-
-        modules = [
-          inputs.disko.nixosModules.disko
-          inputs.sops-nix.nixosModules.sops
-          ./modules
-          ./hosts/unraid-services
-        ];
-      };
+      unraid-services = mkHost "unraid-services";
+      unraid-vpn = mkHost "unraid-vpn";
+      unraid-proxy = mkHost "unraid-proxy";
     };
 
     colmenaHive = inputs.colmena.lib.makeHive {
