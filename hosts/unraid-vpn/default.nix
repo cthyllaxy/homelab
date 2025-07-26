@@ -5,7 +5,7 @@
   ];
 
   networking = {
-    hostName = meta.hostname;
+    hostName = "unraid-vpn";
     networkmanager.enable = true;
   };
 

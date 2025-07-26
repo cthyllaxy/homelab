@@ -9,7 +9,7 @@
   ];
 
   networking = {
-    hostName = meta.hostname;
+    hostName = "unraid-services";
     networkmanager.enable = true;
   };
 

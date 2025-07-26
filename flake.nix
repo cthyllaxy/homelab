@@ -79,7 +79,6 @@
         specialArgs = {
           meta = {
             inherit user utils;
-            hostname = "unraid-services";
           };
         };
 
@@ -96,7 +95,6 @@
         specialArgs = {
           meta = {
             inherit user utils;
-            hostname = "unraid-vpn";
           };
         };
 
@@ -113,18 +111,9 @@
       meta = {
         nixpkgs = import nixpkgs {inherit system;};
 
-        nodeSpecialArgs = {
-          unraid-services = {
-            meta = {
-              inherit user utils;
-              hostname = "unraid-services";
-            };
-          };
-          unraid-vpn = {
-            meta = {
-              inherit user utils;
-              hostname = "unraid-vpn";
-            };
+        specialArgs = {
+          meta = {
+            inherit user utils;
           };
         };
       };
