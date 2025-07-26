@@ -48,4 +48,6 @@ nixos-rebuild FLAKE USER IP:
 # Update host remotely using colmena
 [group('colmena')]
 deploy NODES='*':
-    @colmena apply --on "{{ NODES }}"
+    @colmena apply \
+        --parallel 1 \
+        --on "{{ NODES }}"

@@ -95,50 +95,39 @@
       unraid-proxy = mkHost "unraid-proxy";
     };
 
-    colmenaHive = inputs.colmena.lib.makeHive {
-      meta = {
-        nixpkgs = import nixpkgs {inherit system;};
+    colmenaHive = let
+      mkColmenaHost = hostName: hostIP: {
+        imports = [./hosts/${hostName}];
 
-        specialArgs = {
-          meta = {
-            inherit user utils;
+        deployment = {
+          targetHost = "${hostIP}";
+          targetUser = user;
+        };
+      };
+    in
+      inputs.colmena.lib.makeHive {
+        meta = {
+          nixpkgs = import nixpkgs {inherit system;};
+
+          specialArgs = {
+            meta = {
+              inherit user utils;
+            };
           };
         };
-      };
 
-      defaults = {
-        imports = [
-          inputs.disko.nixosModules.disko
-          inputs.sops-nix.nixosModules.sops
-          ./modules
-        ];
-        deployment.buildOnTarget = true;
-      };
-
-      unraid-services = {
-        imports = [./hosts/unraid-services];
-
-        deployment = {
-          targetHost = "10.0.10.10";
-          targetUser = user;
-          tags = [
-            "unraid"
-            "vm"
+        defaults = {
+          imports = [
+            inputs.disko.nixosModules.disko
+            inputs.sops-nix.nixosModules.sops
+            ./modules
           ];
+          deployment.buildOnTarget = true;
         };
-      };
-      unraid-vpn = {
-        imports = [./hosts/unraid-vpn];
 
-        deployment = {
-          targetHost = "10.0.10.11";
-          targetUser = user;
-          tags = [
-            "unraid"
-            "vm"
-          ];
-        };
+        unraid-services = mkColmenaHost "unraid-services" "10.0.10.10";
+        unraid-vpn = mkColmenaHost "unraid-vpn" "10.0.10.11";
+        unraid-proxy = mkColmenaHost "unraid-proxy" "10.0.10.12";
       };
-    };
   };
 }
