@@ -120,6 +120,12 @@
               hostname = "unraid-services";
             };
           };
+          unraid-vpn = {
+            meta = {
+              inherit user utils;
+              hostname = "unraid-vpn";
+            };
+          };
         };
       };
 
@@ -145,7 +151,7 @@
         };
       };
       unraid-vpn = {
-        imports = [./hosts/unraid-services];
+        imports = [./hosts/unraid-vpn];
 
         deployment = {
           targetHost = "10.0.10.11";
