@@ -14,22 +14,16 @@ in {
     };
   };
 
-  config = let
-    port = 3000;
-  in
-    mkIf cfg.enable {
-      services.${name} = {
-        enable = true;
+  config = mkIf cfg.enable {
+    services.${name} = {
+      enable = true;
 
-        listenPort = port;
-        listenAddress = "*";
-      };
-
-      networking.firewall = {
-        allowedTCPPorts = [port];
-        # allowedUDPPorts = [
-        #   3000
-        # ];
-      };
+      listenAddress = "*";
+      reverseProxy = true;
     };
+
+    networking.firewall = {
+      allowedTCPPorts = [config.services.${name}.listenPort];
+    };
+  };
 }

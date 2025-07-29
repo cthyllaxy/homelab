@@ -55,6 +55,12 @@
         ./hosts/${hostName}
       ];
     });
+
+    hostsIPs = {
+      unraid-services = "10.0.10.10";
+      unraid-vpn = "10.0.10.11";
+      unraid-proxy = "10.0.10.12";
+    };
   in {
     checks = {
       pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
@@ -96,11 +102,11 @@
     };
 
     colmenaHive = let
-      mkColmenaHost = hostName: hostIP: {
+      mkColmenaHost = hostName: {
         imports = [./hosts/${hostName}];
 
         deployment = {
-          targetHost = "${hostIP}";
+          targetHost = hostsIPs."${hostName}";
           targetUser = user;
         };
       };
@@ -111,7 +117,7 @@
 
           specialArgs = {
             meta = {
-              inherit user utils;
+              inherit user utils hostsIPs;
             };
           };
         };
@@ -125,9 +131,9 @@
           deployment.buildOnTarget = true;
         };
 
-        unraid-services = mkColmenaHost "unraid-services" "10.0.10.10";
-        unraid-vpn = mkColmenaHost "unraid-vpn" "10.0.10.11";
-        unraid-proxy = mkColmenaHost "unraid-proxy" "10.0.10.12";
+        unraid-services = mkColmenaHost "unraid-services";
+        unraid-vpn = mkColmenaHost "unraid-vpn";
+        unraid-proxy = mkColmenaHost "unraid-proxy";
       };
   };
 }

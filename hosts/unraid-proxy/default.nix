@@ -1,4 +1,8 @@
-{meta, ...}: {
+{
+  meta,
+  config,
+  ...
+}: {
   imports = [
     ./disko-config.nix
     ./hardware-configuration.nix
@@ -27,9 +31,16 @@
 
           tls ${certPath}cert.pem ${certPath}key.pem
 
-          @foo host foo.cthyllaxy.xyz
-          handle @foo {
-            respond "Foo!"
+          @convos host convos.cthyllaxy.xyz
+          handle @convos {
+            reverse_proxy http://${meta.hostsIPs.unraid-vpn}:${toString config.services.convos.listenPort} {
+              header_up X-Request-Base "{scheme}://{host}/"
+            }
+          }
+
+          @jellyfin host jellyfin.cthyllaxy.xyz
+          handle @jellyfin {
+            reverse_proxy http://${meta.hostsIPs.unraid-services}:8096
           }
 
           handle {
