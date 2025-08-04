@@ -15,6 +15,10 @@
 
   homelab.modules.services = {
     jellyfin.enable = true;
+    nix-serve = {
+      enable = true;
+      secretKeyFile = config.sops.secrets.cachePrivateKey.path;
+    };
     # openssh.enable = true;
     # blocky.enable = true;
     # nginx.enable = true;
@@ -50,6 +54,7 @@
     defaultSopsFile = ./secrets.yaml;
     secrets = {
       acme = {};
+      cachePrivateKey = {};
     };
   };
 

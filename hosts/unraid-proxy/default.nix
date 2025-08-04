@@ -43,6 +43,11 @@
             reverse_proxy http://${meta.hostsIPs.unraid-services}:8096
           }
 
+          @nix-cache host nix-cache.cthyllaxy.xyz
+          handle @nix-cache {
+            reverse_proxy http://${meta.hostsIPs.unraid-services}:5000
+          }
+
           handle {
             abort
           }
