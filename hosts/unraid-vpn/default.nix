@@ -10,7 +10,7 @@
   };
 
   homelab.modules.services = {
-    convos.enable = true;
+    # convos.enable = true;
     # openssh.enable = true;
     # blocky.enable = true;
     # nginx.enable = true;
