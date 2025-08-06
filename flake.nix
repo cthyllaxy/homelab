@@ -88,6 +88,7 @@
         age
         alejandra
         bitwarden-cli
+        copier
         fd
         inputs.colmena.packages.${system}.colmena
         just

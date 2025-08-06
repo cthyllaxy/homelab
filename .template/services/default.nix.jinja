@@ -1,0 +1,21 @@
+{
+  lib,
+  getConfig,
+  getDataDir,
+  getAppDir,
+  ...
+}:
+with lib; let
+  name = "{{module_name}}";
+  cfg = getConfig.${name};
+in {
+  options = {
+    homelab.modules.services.${name} = {
+      enable = mkEnableOption "Enable {{module_name}}";
+    };
+  };
+
+  config = mkIf cfg.enable {
+    # TODO: add config here
+  };
+}

@@ -51,3 +51,7 @@ deploy NODES='*':
     @colmena apply \
         --parallel 1 \
         --on "{{ NODES }}"
+
+[group('template')]
+create-service SERVICE:
+    @copier copy -d "module_name={{SERVICE}}" .template/services "modules/services/{{SERVICE}}"
