@@ -1,15 +1,16 @@
 {
   lib,
-  config,
+  getConfig,
+  getDataDir,
+  getAppDir,
   ...
 }:
 with lib; let
-  svcs = config.homelab.modules.services;
-  cfg = svcs.jellyfin;
   name = "jellyfin";
+  cfg = getConfig.${name};
 in {
   options = {
-    homelab.modules.services.jellyfin = {
+    homelab.modules.services.${name} = {
       enable = mkEnableOption "Enable Jellyfin";
     };
   };
@@ -22,8 +23,8 @@ in {
       openFirewall = true;
 
       # data
-      configDir = "${svcs.appDir}/${name}";
-      dataDir = "${svcs.dataDir}/${name}";
+      configDir = "${getAppDir}/${name}";
+      dataDir = "${getDataDir}/${name}";
     };
   };
 }

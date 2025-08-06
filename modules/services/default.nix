@@ -1,5 +1,8 @@
-{lib, ...}:
-with lib; let
+{
+  lib,
+  config,
+  ...
+}: let
   servicesPath = ./.;
 in {
   # Read all directories from systemModules
@@ -7,16 +10,9 @@ in {
     map (module: "${servicesPath}/${module}") (builtins.attrNames (builtins.readDir servicesPath))
   );
 
-  options = {
-    homelab.modules.services.dataDir = mkOption {
-      type = types.str;
-      default = "/mnt/data";
-      description = "Long term storage goes here";
-    };
-    homelab.modules.services.appDir = mkOption {
-      type = types.str;
-      default = "/mnt/appdata";
-      description = "Cache/app data goes here";
-    };
+  _module.args = {
+    getConfig = config.homelab.modules.services;
+    getDataDir = "/mnt/data";
+    getAppDir = "/mnt/appdata";
   };
 }

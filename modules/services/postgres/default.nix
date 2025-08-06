@@ -1,26 +1,37 @@
 {
   lib,
-  config,
   pkgs,
+  getConfig,
+  getDataDir,
   ...
 }:
 with lib; let
-  cfg = config.homelab.modules.services.postgres;
+  name = "postgres";
+  cfg = getConfig.${name};
 in {
   options = {
-    homelab.modules.services.postgres.enable = mkEnableOption "Enable Postgres Configs";
-    homelab.modules.services.postgres.dataDir = mkOption {
-      type = types.str;
-      default = "${config.homelab.modules.services.dataDir}/postgres";
-      description = "Path to store PostgreSQL data";
+    homelab.modules.services.${name} = {
+      enable = mkEnableOption "Enable Postgres Configs";
+      dataDir = mkOption {
+        type = types.str;
+        default = "${getDataDir}/postgres";
+        description = "Path to store PostgreSQL data";
+      };
     };
   };
 
   config = lib.mkIf cfg.enable {
     services.postgresql = {
       enable = true;
-      package = pkgs.postgresql_18;
+      package = pkgs.postgresql_17;
       dataDir = cfg.dataDir;
     };
+
+    # create the directory with correct permissions
+    # it doesn't create folders other than the default value
+    # defined for `dataDir`
+    systemd.tmpfiles.rules = [
+      "d ${cfg.dataDir} 0750 postgres postgres - -"
+    ];
   };
 }
