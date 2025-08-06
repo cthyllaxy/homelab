@@ -19,12 +19,12 @@
       enable = true;
       secretKeyFile = config.sops.secrets.cachePrivateKey.path;
     };
+    postgres.enable = true;
     # openssh.enable = true;
     # blocky.enable = true;
     # nginx.enable = true;
     # owncloud.enable = true;
     # paperless.enable = true;
-    # postgres.enable = true;
   };
 
   security.acme = {
