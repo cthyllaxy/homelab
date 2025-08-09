@@ -1,35 +1,43 @@
 {
   lib,
   config,
+  getConfig,
+  getDataDir,
   ...
 }:
 with lib; let
-  svcs = config.homelab.modules.services;
-  cfg = svcs.immich;
   name = "immich";
+  cfg = getConfig.${name};
 in {
   options = {
-    homelab.modules.services.immich = {
+    homelab.modules.services.${name} = {
       enable = mkEnableOption "Enable Immich";
     };
   };
 
-  config = mkIf cfg.enable {
-    services.immich = {
-      enable = true;
+  config = let
+    mediaLocation = "${getDataDir}/${name}";
+  in
+    mkIf cfg.enable {
+      services.immich = {
+        enable = true;
 
-      # networking
-      openFirewall = true;
+        # networking
+        openFirewall = true;
 
-      # databases
-      database.host = "/run/postgresql";
-      redis.host = config.services.redis.servers.immich.unixSocket;
+        # data
+        mediaLocation = mediaLocation;
 
-      # env vars
-      secretsFile = "/run/secrets/immich";
+        # databases
+        database.host = "/run/postgresql";
+        redis.host = config.services.redis.servers.immich.unixSocket;
 
-      accelerationDevices = ["/dev/dri/renderD128"];
-      mediaLocation = "${svcs.dataDir}/${name}";
+        accelerationDevices = ["/dev/dri/renderD128"];
+      };
+
+      # create the directory to store data
+      systemd.tmpfiles.rules = [
+        "d ${mediaLocation} 0750 immich immich - -"
+      ];
     };
-  };
 }

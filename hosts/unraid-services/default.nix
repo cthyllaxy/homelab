@@ -20,10 +20,7 @@
       secretKeyFile = config.sops.secrets.cachePrivateKey.path;
     };
     postgres.enable = true;
-    # openssh.enable = true;
-    # blocky.enable = true;
-    # nginx.enable = true;
-    # owncloud.enable = true;
+    immich.enable = true;
     # paperless.enable = true;
   };
 

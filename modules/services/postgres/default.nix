@@ -20,10 +20,10 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     services.postgresql = {
       enable = true;
-      package = pkgs.postgresql_17;
+      package = pkgs.postgresql_16;
       dataDir = cfg.dataDir;
     };
 
