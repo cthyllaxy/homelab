@@ -24,6 +24,7 @@ in {
 
         # networking
         openFirewall = true;
+        host = "10.0.10.10";
 
         # data
         mediaLocation = mediaLocation;
@@ -33,6 +34,10 @@ in {
         redis.host = config.services.redis.servers.immich.unixSocket;
 
         accelerationDevices = ["/dev/dri/renderD128"];
+
+        settings = {
+          externalDomain = "https://immich.cthyllaxy.xyz";
+        };
       };
 
       # create the directory to store data
