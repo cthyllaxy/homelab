@@ -54,4 +54,7 @@ deploy NODES='*':
 
 [group('template')]
 create-service SERVICE:
-    @copier copy -d "module_name={{SERVICE}}" .template/services "modules/services/{{SERVICE}}"
+    @copier copy \
+        --vcs-ref=2025.231 \
+        -d "module_name={{SERVICE}}" \
+        templates/services "modules/services/{{SERVICE}}"
