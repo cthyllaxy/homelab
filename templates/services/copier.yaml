@@ -1,7 +1,0 @@
-module_name:
-  type: str
-
-template_version:
-  type: str
-  default: "template-2025.231"
-  when: false # hidden from user, just for tracking
