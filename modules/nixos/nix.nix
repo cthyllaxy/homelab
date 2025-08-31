@@ -4,14 +4,8 @@
   ...
 }: {
   nix = {
-    package = pkgs.nixVersions.latest;
+    package = pkgs.lix;
     settings = {
-      substituters = [
-        "https://nix-cache.cthyllaxy.xyz"
-      ];
-      trusted-public-keys = [
-        "nix-cache.cthyllaxy.xyz:CEJYeiGUveq4GMALY2GHhcIwrr5PwYwdUj6skoHmBH8="
-      ];
       experimental-features = [
         "nix-command"
         "flakes"

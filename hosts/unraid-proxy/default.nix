@@ -42,6 +42,11 @@
             reverse_proxy http://${meta.hostsIPs.unraid-services}:2283
           }
 
+          @lldap host lldap.cthyllaxy.xyz
+          handle @lldap {
+            reverse_proxy http://${meta.hostsIPs.unraid-services}:17170
+          }
+
           handle {
             abort
           }

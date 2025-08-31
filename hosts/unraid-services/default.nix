@@ -21,6 +21,13 @@
     };
     postgres.enable = true;
     immich.enable = true;
+    lldap = {
+      enable = true;
+
+      jwtSecretFile = config.sops.secrets."lldap/jwt_secret".path;
+      keySeedFile = config.sops.secrets."lldap/key_seed".path;
+      userPassFile = config.sops.secrets."lldap/admin_password".path;
+    };
     # paperless.enable = true;
   };
 
@@ -52,6 +59,9 @@
     secrets = {
       acme = {};
       cachePrivateKey = {};
+      "lldap/jwt_secret".owner = "lldap";
+      "lldap/key_seed".owner = "lldap";
+      "lldap/admin_password".owner = "lldap";
     };
   };
 
