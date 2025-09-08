@@ -15,10 +15,6 @@
 
   homelab.modules.services = {
     jellyfin.enable = true;
-    nix-serve = {
-      enable = true;
-      secretKeyFile = config.sops.secrets.cachePrivateKey.path;
-    };
     postgres.enable = true;
     immich.enable = true;
     lldap = {
@@ -58,7 +54,6 @@
     defaultSopsFile = ./secrets.yaml;
     secrets = {
       acme = {};
-      cachePrivateKey = {};
       "lldap/jwt_secret".owner = "lldap";
       "lldap/key_seed".owner = "lldap";
       "lldap/admin_password".owner = "lldap";

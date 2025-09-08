@@ -59,6 +59,7 @@
     });
 
     hostsIPs = {
+      unraid = "10.0.10.2";
       unraid-services = "10.0.10.10";
       unraid-vpn = "10.0.10.11";
       unraid-proxy = "10.0.10.12";

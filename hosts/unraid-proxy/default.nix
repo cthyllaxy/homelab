@@ -34,7 +34,7 @@
 
           @nix-cache host nix-cache.cthyllaxy.xyz
           handle @nix-cache {
-            reverse_proxy http://${meta.hostsIPs.unraid-services}:5000
+            reverse_proxy http://${meta.hostsIPs.unraid}:8501
           }
 
           @immich host immich.cthyllaxy.xyz
