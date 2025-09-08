@@ -6,6 +6,7 @@
     };
     growPartition = true;
 
-    kernelPackages = pkgs.linuxPackages_6_15;
+    # latest longterm ( https://kernel.org/ )
+    kernelPackages = pkgs.linuxPackages_6_12;
   };
 }
