@@ -36,7 +36,14 @@ in {
         accelerationDevices = ["/dev/dri/renderD128"];
 
         settings = {
+          # references can be found at
+          # https://immich.app/docs/install/config-file/
           externalDomain = "https://immich.cthyllaxy.xyz";
+          storageTemplate = {
+            enabled = true;
+            hashVerificationEnabled = true;
+            template = "{{y}}/{{MM}}/{{dd}}/{{filename}}";
+          };
         };
       };
 
