@@ -24,6 +24,23 @@
       keySeedFile = config.sops.secrets."lldap/key_seed".path;
       userPassFile = config.sops.secrets."lldap/admin_password".path;
     };
+    redis.enable = true;
+    # authelia = {
+    #   enable = false;
+    #   secrets = with config.sops; {
+    #     jwtSecretFile = secrets."authelia/jwt_secret".path;
+    #     oidcIssuerPrivateKeyFile = secrets."authelia/jwks".path;
+    #     oidcHmacSecretFile = secrets."authelia/hmac_secret".path;
+    #     sessionSecretFile = secrets."authelia/session_secret".path;
+    #     storageEncryptionKeyFile = secrets."authelia/storage_encryption_key".path;
+    #   };
+    #
+    #   environmentVariables = with config.sops; {
+    #     AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE =
+    #       secrets."authelia/lldap_authelia_password".path;
+    #     # AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = secrets.smtp-password_authelia.path;
+    #   };
+    # };
     # paperless.enable = true;
   };
 
