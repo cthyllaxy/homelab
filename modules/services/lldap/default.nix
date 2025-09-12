@@ -1,3 +1,4 @@
+# inspired by https://codeberg.org/PopeRigby/config/src/branch/main/systems/x86_64-linux/haddock/services/auth/lldap.nix
 {
   lib,
   config,
@@ -24,7 +25,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # inspired by https://codeberg.org/PopeRigby/config/src/branch/main/systems/x86_64-linux/haddock/services/auth/lldap.nix
     users = {
       users.lldap = {
         group = "lldap";
